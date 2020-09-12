@@ -13,12 +13,35 @@ header button {
     width: 80px;
 }
 
-ul {
-    list-style: none;
+main {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
-ul li {
-    margin: 10px;
+div.widget {
+    margin: 10px 0;
+    padding: 20px;
+    background-color: darkgrey;
+}
+
+ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+ul#exchange_rates li {
+    margin: 10px 0;
+}
+
+ul#weather_list {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+ul#weather_list li {
+    margin: 10px 0;
     padding: 20px;
     display: flex;
     justify-content: space-between;

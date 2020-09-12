@@ -183,10 +183,7 @@ class WeatherController {
                     this.model.addCity(element._id, element.name);
                 });
             })
-            .catch(err => console.log(err))
-            .finally(() => {
-                
-            });
+            .catch(err => console.log(err));
         this.view.addButton.addEventListener("click", this.addData);
     }
 
@@ -254,8 +251,80 @@ class WeatherController {
     }
 }
 
+class CoursView {
+    constructor() {
+        this.coursList = document.querySelector("#exchange_rates");
+    }
+    clear() {
+        this.coursList.innerHTML = '';
+    }
+    renderLoading() {
+        this.clear();
+        const li = document.createElement("li");
+        li.innerText = 'loading...';
+        this.coursList.appendChild(li);
+    }
+    renderError(msg) {
+        this.clear();
+        const li = document.createElement("li");
+        li.innerText = `error: ${msg}`;
+        this.coursList.appendChild(li);
+    }
+    renderCoursItem(ccy, base_ccy, buy, sale) {
+        const li = document.createElement("li");
+        const title = document.createElement("h4");
+        title.innerText = ccy;
+        const p = document.createElement("p");
+        p.innerText = `buy: ${(buy*1).toFixed(2)}${base_ccy} / sale: ${(sale*1).toFixed(2)}${base_ccy}`;
+        li.append(title, p);
+        this.coursList.appendChild(li);
+    }
+}
+class CoursModel {
+    constructor() {
+        this.courses = [];
+    }
+}
+class CoursControler {
+    constructor(model, view) {
+        this.model = model;
+        this.view = view;
+        this.loadData = this.loadData.bind(this);
+    }
+
+
+    handle() {
+        this.loadData();
+        setInterval(this.loadData, 7200000);
+    }
+
+
+    loadData() {
+        this.view.renderLoading();
+        fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+            .then(response => response.json())
+            .then(result => {
+                this.model.courses = result;
+            })
+            .catch(err => {
+                console.log(err);
+            })
+            .finally(() => {
+                this.view.clear();
+                if(this.model.courses.length === 0) return this.view.renderError('no data');
+                this.model.courses.forEach(item => this.view.renderCoursItem(item.ccy, item.base_ccy, item.buy, item.sale))
+            });
+    }
+
+}
+
 const weatherView = new WeatherView();
 const weatherModel = new WeatherModel(weatherView);
 const weatherController = new WeatherController(weatherModel, weatherView);
 
+const coursView = new CoursView();
+const coursModel = new CoursModel();
+const coursController = new CoursControler(coursModel, coursView);
+
 weatherController.handle();
+coursController.handle();
