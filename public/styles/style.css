@@ -4,7 +4,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: darkcyan;
+    background-color: teal;
 }
 header input {
     flex-grow: 1;
@@ -25,6 +25,13 @@ ul li {
     align-items: center;
     background-color: cadetblue;
 }
+ul li#current_city {
+    display: block;
+    background-color: darkcyan;
+}
+ul li#current_city span {
+    font-style: italic;
+}
 
 ul li button {
     width: 60px;
@@ -35,4 +42,10 @@ ul li div {
 }
 ul li input {
     flex-grow: 1;
+}
+ul li p {
+    margin: 0;
+}
+ul li h4 {
+    margin: 0;
 }

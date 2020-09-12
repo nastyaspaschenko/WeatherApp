@@ -1,4 +1,4 @@
-class View {
+class WeatherView {
     constructor() {
         this.input = document.querySelector("header input");
         this.addButton = document.querySelector("header button");
@@ -50,38 +50,26 @@ class View {
         item.querySelector("p").innerHTML = data;
     }
 
+    updateCurrentWeatherData(cityName, data) {
+        const item = this.weatherList.querySelector("#current_city");
+        item.querySelector("h4").innerHTML = cityName;
+        item.querySelector("p").innerHTML = data;
+    }
+
     removeItem(cityId) {
         this.weatherList.querySelector("#li" + cityId).remove();
     }
 }
 
-class Model {
+class WeatherModel {
     constructor(view) {
         this.view = view;
         this.cities = new Map();
-    }
-
-    loadWeather(city) {
-        city.weather = 'loading...';
-        this.view.updateWeatherData(city.id, city.weather);
-
-        const url = new URL('http://api.openweathermap.org/data/2.5/weather');
-        url.searchParams.set('appid', 'a85a31d77daec507fe9c90f7968a89fc');
-        url.searchParams.set('q', city.name);
-
-        fetch(url)
-            .then(response => response.json())
-            .then(result => {
-                if(result.cod !== 200) return city.weather = `error cod=${result.cod}`;
-                city.weather = `Temp: ${(result.main.temp - 270).toFixed(1)}&deg;C; Wind: ${result.wind.speed} mph; ${result.weather[0].description}`;
-            })
-            .catch(err => {
-                console.log(err);
-                city.weather = 'error';
-            })
-            .finally(() => {
-                this.view.updateWeatherData(city.id, city.weather);
-            });
+        this.currentCity = {
+            location: null,
+            name: 'Unknown',
+            weather: 'Unknown'
+        }
     }
 
     addCity(id, name) {
@@ -104,9 +92,70 @@ class Model {
         this.cities.delete(id);
     }
 
+    setLocation(location) {
+        this.currentCity.location = location;
+        if(location == null) {
+            this.currentCity.name = `Unknown`;
+            this.currentCity.weather = 'Unable to retrieve your location';
+            this.view.updateCurrentWeatherData(this.currentCity.name, this.currentCity.weather);
+            return;
+        }
+        this.loadCurrentWeather();
+    }
+
+    loadCurrentWeather() {
+        const url = new URL('http://api.openweathermap.org/data/2.5/weather');
+        url.searchParams.set('appid', 'a85a31d77daec507fe9c90f7968a89fc');
+        url.searchParams.set('lat', this.currentCity.location[0]);
+        url.searchParams.set('lon', this.currentCity.location[1]);
+
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                if(result.cod === 200) {
+                    this.currentCity.name = result.name;
+                    this.currentCity.weather = `Temp: ${(result.main.temp - 270).toFixed(1)}&deg;C; Wind: ${result.wind.speed} mph; ${result.weather[0].description}`;
+                } else {
+                    this.currentCity.name = `error cod=${result.cod}`;
+                    this.currentCity.weather = JSON.stringify(result);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                this.currentCity.name = `Unknown`;
+                this.currentCity.weather = 'error';
+            })
+            .finally(() => {
+                this.view.updateCurrentWeatherData(this.currentCity.name, this.currentCity.weather);
+            });
+    }
+
+    loadWeather(city) {
+        city.weather = 'loading...';
+        this.view.updateWeatherData(city.id, city.weather);
+
+        const url = new URL('http://api.openweathermap.org/data/2.5/weather');
+        url.searchParams.set('appid', 'a85a31d77daec507fe9c90f7968a89fc');
+        url.searchParams.set('q', city.name);
+
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                if(result.cod !== 200) return city.weather = JSON.stringify(result);
+                city.weather = `Temp: ${(result.main.temp - 270).toFixed(1)}&deg;C; Wind: ${result.wind.speed} mph; ${result.weather[0].description}`;
+            })
+            .catch(err => {
+                console.log(err);
+                city.weather = 'error';
+            })
+            .finally(() => {
+                this.view.updateWeatherData(city.id, city.weather);
+            });
+    }
+
 }
 
-class Controller {
+class WeatherController {
     constructor(model, view) {
         this.model = model;
         this.view = view;
@@ -115,6 +164,14 @@ class Controller {
     }
 
     handle() {
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition( 
+                (position) => this.model.setLocation([position.coords.latitude, position.coords.longitude]),
+                (err) => this.model.setLocation(null)
+                );
+        } else {
+            this.model.setLocation(null);
+        }
         fetch('http://localhost:3000/cities')
             .then(response => response.json())
             .then(result => {
@@ -197,33 +254,8 @@ class Controller {
     }
 }
 
-const view = new View();
-const model = new Model(view);
-const controller = new Controller(model, view);
+const weatherView = new WeatherView();
+const weatherModel = new WeatherModel(weatherView);
+const weatherController = new WeatherController(weatherModel, weatherView);
 
-controller.handle();
-
-
-
-
-
-// if(navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(
-//         (position) => {
-//             const url = new URL('http://api.openweathermap.org/data/2.5/weather');
-//             url.searchParams.set('appid', 'a85a31d77daec507fe9c90f7968a89fc');
-//             url.searchParams.set('lat', position.coords.latitude);
-//             url.searchParams.set('lon', position.coords.longitude);
-
-//             fetch(url)
-//                 .then(response => response.json())
-//                 .then(result => model.currentWeather = result)
-//                 .catch(err => {
-//                     console.log(err);
-//                     model.currentWeather = null;
-//                 })
-//                 .finally(() => {
-//                     //render view
-//                 });
-//         });
-// }
+weatherController.handle();
