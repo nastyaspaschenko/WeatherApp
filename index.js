@@ -20,6 +20,7 @@ client.connect((err) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/src'));
 
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'), 
     (err) => console.log(err));
