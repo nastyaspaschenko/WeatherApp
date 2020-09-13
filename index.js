@@ -24,8 +24,21 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'), 
     (err) => console.log(err));
 
+app.post('/', (req, res) => {
+    let user = {
+        name: 'user'
+    }
+    db.collection('users').insertOne(user, (err, result) => {
+        if(err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
+        res.status(200).json(user);
+    });
+});
+
 app.get('/cities', (req, res) => {
-    db.collection('cities').find().toArray((err, docs) => {
+    db.collection('cities').find({user_id: req.query.userid}).toArray((err, docs) => {
         if(err) {
             console.log(err);
             return res.sendStatus(500);
@@ -36,7 +49,8 @@ app.get('/cities', (req, res) => {
 
 app.post('/cities', (req, res) => {
     let city = {
-        name: req.body.city
+        name: req.body.city,
+        user_id: req.body.user_id
     }
 
     db.collection('cities').insertOne(city, (err, result) => {
@@ -49,7 +63,7 @@ app.post('/cities', (req, res) => {
 });
 
 app.delete('/cities/:id', (req, res) => {
-    db.collection('cities').deleteOne({_id: ObjectID(req.params.id)}, (err, result) => {
+    db.collection('cities').deleteOne({_id: ObjectID(req.params.id), user_id: req.query.userid}, (err, result) => {
         if(err) {
             console.log(err);
             return res.sendStatus(500);
@@ -59,7 +73,7 @@ app.delete('/cities/:id', (req, res) => {
 });
 
 app.put('/cities/:id', (req, res) => {
-    db.collection('cities').updateOne({_id: ObjectID(req.params.id)}, 
+    db.collection('cities').updateOne({_id: ObjectID(req.params.id), user_id: req.query.userid}, 
     {$set: {name: req.body.city}}, (err, result) => {
         if(err) {
             console.log(err);

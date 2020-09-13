@@ -64,12 +64,18 @@ class WeatherView {
 class WeatherModel {
     constructor(view) {
         this.view = view;
+        this.userId = localStorage.getItem("user_id");
         this.cities = new Map();
         this.currentCity = {
             location: null,
             name: 'Unknown',
             weather: 'Unknown'
         }
+    }
+
+    saveUserId(userId) {
+        this.userId = userId;
+        localStorage.setItem("user_id", userId);
     }
 
     addCity(id, name) {
@@ -164,6 +170,14 @@ class WeatherController {
     }
 
     handle() {
+        if(this.model.userId === null) {
+            fetch('http://localhost:3000/cities', { method: 'POST' })
+            .then(response => response.json())
+            .then(result => {
+                this.model.saveUserId(result._id);
+            })
+            .catch(err => console.log(err));
+        }
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition( 
                 (position) => this.model.setLocation([position.coords.latitude, position.coords.longitude]),
@@ -172,7 +186,7 @@ class WeatherController {
         } else {
             this.model.setLocation(null);
         }
-        fetch('http://localhost:3000/cities')
+        fetch(`http://localhost:3000/cities?userid=${this.model.userId}`)
             .then(response => response.json())
             .then(result => {
                 result.forEach(element => {
@@ -194,7 +208,10 @@ class WeatherController {
         fetch('http://localhost:3000/cities', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({city: cityName})
+            body: JSON.stringify({
+                city: cityName,
+                user_id: this.model.userId
+            })
           })
             .then(response => response.json())
             .then(result => {
@@ -216,7 +233,7 @@ class WeatherController {
                 let action = event.target.dataset.action;
                 switch (action) {
                     case "remove":
-                        fetch('http://localhost:3000/cities/' + this.id, {method: 'DELETE'})
+                        fetch(`http://localhost:3000/cities/${this.id}?userid=${this.controller.model.userId}`, {method: 'DELETE'})
                             .then(response => {
                                 if(response.status === 200) {
                                     this.controller.model.removeCity(this.id);
@@ -230,7 +247,7 @@ class WeatherController {
                         break;
                     case "save":
                         const newName = this.controller.view.weatherList.querySelector("#li" + this.id + " input").value;
-                        fetch('http://localhost:3000/cities/' + this.id, {
+                        fetch(`http://localhost:3000/cities/${this.id}?userid=${this.controller.model.userId}`, {
                             method: 'PUT',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({city: newName}) 
@@ -280,11 +297,19 @@ class CoursView {
         this.coursList.appendChild(li);
     }
 }
+
 class CoursModel {
     constructor() {
         this.courses = [];
     }
+    setCourses(courses) {
+        this.courses = courses;
+    }
+    clearCourses() {
+        this.courses = [];
+    }
 }
+
 class CoursControler {
     constructor(model, view) {
         this.model = model;
@@ -300,11 +325,12 @@ class CoursControler {
 
 
     loadData() {
+        this.model.clearCourses();
         this.view.renderLoading();
         fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
             .then(response => response.json())
             .then(result => {
-                this.model.courses = result;
+                this.model.setCourses(result);
             })
             .catch(err => {
                 console.log(err);
