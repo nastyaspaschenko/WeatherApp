@@ -1,356 +1,135 @@
-class WeatherView {
-    constructor() {
-        this.input = document.querySelector("header input");
-        this.addButton = document.querySelector("header button");
-        this.weatherList = document.querySelector("#weather_list");
-    }
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/main.js");
+/******/ })
+/************************************************************************/
+/******/ ({
 
-    renderItem(cityId, cityName) {
-        let item = this.weatherList.querySelector("#li" + cityId);
-        if (item == null) {
-            item = document.createElement("li");
-            item.setAttribute('id', 'li' + cityId);
-            this.weatherList.appendChild(item);
-        }
+/***/ "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js!./src/styles/style.css":
+/*!**************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js!./src/styles/style.css ***!
+  \**************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-        item.innerHTML = '';
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/styles/style.css?./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js");
 
-        const dataDiv = document.createElement("div");
-        const title = document.createElement("h4");
-        title.innerHTML = cityName;
-        const weather = document.createElement("p");
-        dataDiv.append(title, weather);
+/***/ }),
 
-        const editBtn = document.createElement("button");
-        editBtn.innerHTML = "&#9998;";
-        editBtn.setAttribute("data-action","edit");
-        item.appendChild(editBtn);
-        const removeBtn = document.createElement("button");
-        removeBtn.innerHTML = "&times;";
-        removeBtn.setAttribute("data-action","remove");
-        item.append(dataDiv, editBtn, removeBtn);
+/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-        return item;
-    }
+"use strict";
+eval("\n\nvar isOldIE = function isOldIE() {\n  var memo;\n  return function memorize() {\n    if (typeof memo === 'undefined') {\n      // Test for IE <= 9 as proposed by Browserhacks\n      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805\n      // Tests for existence of standard globals is to allow style-loader\n      // to operate correctly into non-standard environments\n      // @see https://github.com/webpack-contrib/style-loader/issues/177\n      memo = Boolean(window && document && document.all && !window.atob);\n    }\n\n    return memo;\n  };\n}();\n\nvar getTarget = function getTarget() {\n  var memo = {};\n  return function memorize(target) {\n    if (typeof memo[target] === 'undefined') {\n      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself\n\n      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {\n        try {\n          // This will throw an exception if access to iframe is blocked\n          // due to cross-origin restrictions\n          styleTarget = styleTarget.contentDocument.head;\n        } catch (e) {\n          // istanbul ignore next\n          styleTarget = null;\n        }\n      }\n\n      memo[target] = styleTarget;\n    }\n\n    return memo[target];\n  };\n}();\n\nvar stylesInDom = [];\n\nfunction getIndexByIdentifier(identifier) {\n  var result = -1;\n\n  for (var i = 0; i < stylesInDom.length; i++) {\n    if (stylesInDom[i].identifier === identifier) {\n      result = i;\n      break;\n    }\n  }\n\n  return result;\n}\n\nfunction modulesToDom(list, options) {\n  var idCountMap = {};\n  var identifiers = [];\n\n  for (var i = 0; i < list.length; i++) {\n    var item = list[i];\n    var id = options.base ? item[0] + options.base : item[0];\n    var count = idCountMap[id] || 0;\n    var identifier = \"\".concat(id, \" \").concat(count);\n    idCountMap[id] = count + 1;\n    var index = getIndexByIdentifier(identifier);\n    var obj = {\n      css: item[1],\n      media: item[2],\n      sourceMap: item[3]\n    };\n\n    if (index !== -1) {\n      stylesInDom[index].references++;\n      stylesInDom[index].updater(obj);\n    } else {\n      stylesInDom.push({\n        identifier: identifier,\n        updater: addStyle(obj, options),\n        references: 1\n      });\n    }\n\n    identifiers.push(identifier);\n  }\n\n  return identifiers;\n}\n\nfunction insertStyleElement(options) {\n  var style = document.createElement('style');\n  var attributes = options.attributes || {};\n\n  if (typeof attributes.nonce === 'undefined') {\n    var nonce =  true ? __webpack_require__.nc : undefined;\n\n    if (nonce) {\n      attributes.nonce = nonce;\n    }\n  }\n\n  Object.keys(attributes).forEach(function (key) {\n    style.setAttribute(key, attributes[key]);\n  });\n\n  if (typeof options.insert === 'function') {\n    options.insert(style);\n  } else {\n    var target = getTarget(options.insert || 'head');\n\n    if (!target) {\n      throw new Error(\"Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.\");\n    }\n\n    target.appendChild(style);\n  }\n\n  return style;\n}\n\nfunction removeStyleElement(style) {\n  // istanbul ignore if\n  if (style.parentNode === null) {\n    return false;\n  }\n\n  style.parentNode.removeChild(style);\n}\n/* istanbul ignore next  */\n\n\nvar replaceText = function replaceText() {\n  var textStore = [];\n  return function replace(index, replacement) {\n    textStore[index] = replacement;\n    return textStore.filter(Boolean).join('\\n');\n  };\n}();\n\nfunction applyToSingletonTag(style, index, remove, obj) {\n  var css = remove ? '' : obj.media ? \"@media \".concat(obj.media, \" {\").concat(obj.css, \"}\") : obj.css; // For old IE\n\n  /* istanbul ignore if  */\n\n  if (style.styleSheet) {\n    style.styleSheet.cssText = replaceText(index, css);\n  } else {\n    var cssNode = document.createTextNode(css);\n    var childNodes = style.childNodes;\n\n    if (childNodes[index]) {\n      style.removeChild(childNodes[index]);\n    }\n\n    if (childNodes.length) {\n      style.insertBefore(cssNode, childNodes[index]);\n    } else {\n      style.appendChild(cssNode);\n    }\n  }\n}\n\nfunction applyToTag(style, options, obj) {\n  var css = obj.css;\n  var media = obj.media;\n  var sourceMap = obj.sourceMap;\n\n  if (media) {\n    style.setAttribute('media', media);\n  } else {\n    style.removeAttribute('media');\n  }\n\n  if (sourceMap && btoa) {\n    css += \"\\n/*# sourceMappingURL=data:application/json;base64,\".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), \" */\");\n  } // For old IE\n\n  /* istanbul ignore if  */\n\n\n  if (style.styleSheet) {\n    style.styleSheet.cssText = css;\n  } else {\n    while (style.firstChild) {\n      style.removeChild(style.firstChild);\n    }\n\n    style.appendChild(document.createTextNode(css));\n  }\n}\n\nvar singleton = null;\nvar singletonCounter = 0;\n\nfunction addStyle(obj, options) {\n  var style;\n  var update;\n  var remove;\n\n  if (options.singleton) {\n    var styleIndex = singletonCounter++;\n    style = singleton || (singleton = insertStyleElement(options));\n    update = applyToSingletonTag.bind(null, style, styleIndex, false);\n    remove = applyToSingletonTag.bind(null, style, styleIndex, true);\n  } else {\n    style = insertStyleElement(options);\n    update = applyToTag.bind(null, style, options);\n\n    remove = function remove() {\n      removeStyleElement(style);\n    };\n  }\n\n  update(obj);\n  return function updateStyle(newObj) {\n    if (newObj) {\n      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {\n        return;\n      }\n\n      update(obj = newObj);\n    } else {\n      remove();\n    }\n  };\n}\n\nmodule.exports = function (list, options) {\n  options = options || {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>\n  // tags it will allow on a page\n\n  if (!options.singleton && typeof options.singleton !== 'boolean') {\n    options.singleton = isOldIE();\n  }\n\n  list = list || [];\n  var lastIdentifiers = modulesToDom(list, options);\n  return function update(newList) {\n    newList = newList || [];\n\n    if (Object.prototype.toString.call(newList) !== '[object Array]') {\n      return;\n    }\n\n    for (var i = 0; i < lastIdentifiers.length; i++) {\n      var identifier = lastIdentifiers[i];\n      var index = getIndexByIdentifier(identifier);\n      stylesInDom[index].references--;\n    }\n\n    var newLastIdentifiers = modulesToDom(newList, options);\n\n    for (var _i = 0; _i < lastIdentifiers.length; _i++) {\n      var _identifier = lastIdentifiers[_i];\n\n      var _index = getIndexByIdentifier(_identifier);\n\n      if (stylesInDom[_index].references === 0) {\n        stylesInDom[_index].updater();\n\n        stylesInDom.splice(_index, 1);\n      }\n    }\n\n    lastIdentifiers = newLastIdentifiers;\n  };\n};\n\n//# sourceURL=webpack:///./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js?");
 
-    setItemEditable(cityId) {
-        const item = this.weatherList.querySelector("#li" + cityId);
-        const cityName = item.querySelector("h4").innerText;
-        item.innerHTML = '';
-        const input = document.createElement("input");
-        input.value = cityName;
-        const okBtn = document.createElement("button");
-        okBtn.innerHTML = "OK";
-        okBtn.setAttribute("data-action","save");
-        item.append(input, okBtn);
-    }
+/***/ }),
 
-    updateWeatherData(cityId, data) {
-        const item = this.weatherList.querySelector("#li" + cityId);
-        item.querySelector("p").innerHTML = data;
-    }
+/***/ "./src/main.js":
+/*!*********************!*\
+  !*** ./src/main.js ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-    updateCurrentWeatherData(cityName, data) {
-        const item = this.weatherList.querySelector("#current_city");
-        item.querySelector("h4").innerHTML = cityName;
-        item.querySelector("p").innerHTML = data;
-    }
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/style.css */ \"./src/styles/style.css\");\n/* harmony import */ var _styles_style_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_style_css__WEBPACK_IMPORTED_MODULE_0__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\n\n\nvar WeatherView = /*#__PURE__*/function () {\n  function WeatherView() {\n    _classCallCheck(this, WeatherView);\n\n    this.input = document.querySelector(\"header input\");\n    this.addButton = document.querySelector(\"header button\");\n    this.weatherList = document.querySelector(\"#weather_list\");\n  }\n\n  _createClass(WeatherView, [{\n    key: \"renderItem\",\n    value: function renderItem(cityId, cityName) {\n      var item = this.weatherList.querySelector(\"#li\" + cityId);\n\n      if (item == null) {\n        item = document.createElement(\"li\");\n        item.setAttribute('id', 'li' + cityId);\n        this.weatherList.appendChild(item);\n      }\n\n      item.innerHTML = '';\n      var dataDiv = document.createElement(\"div\");\n      var title = document.createElement(\"h4\");\n      title.innerHTML = cityName;\n      var weather = document.createElement(\"p\");\n      dataDiv.append(title, weather);\n      var editBtn = document.createElement(\"button\");\n      editBtn.innerHTML = \"&#9998;\";\n      editBtn.setAttribute(\"data-action\", \"edit\");\n      item.appendChild(editBtn);\n      var removeBtn = document.createElement(\"button\");\n      removeBtn.innerHTML = \"&times;\";\n      removeBtn.setAttribute(\"data-action\", \"remove\");\n      item.append(dataDiv, editBtn, removeBtn);\n      return item;\n    }\n  }, {\n    key: \"setItemEditable\",\n    value: function setItemEditable(cityId) {\n      var item = this.weatherList.querySelector(\"#li\" + cityId);\n      var cityName = item.querySelector(\"h4\").innerText;\n      item.innerHTML = '';\n      var input = document.createElement(\"input\");\n      input.value = cityName;\n      var okBtn = document.createElement(\"button\");\n      okBtn.innerHTML = \"OK\";\n      okBtn.setAttribute(\"data-action\", \"save\");\n      item.append(input, okBtn);\n    }\n  }, {\n    key: \"updateWeatherData\",\n    value: function updateWeatherData(cityId, data) {\n      var item = this.weatherList.querySelector(\"#li\" + cityId);\n      item.querySelector(\"p\").innerHTML = data;\n    }\n  }, {\n    key: \"updateCurrentWeatherData\",\n    value: function updateCurrentWeatherData(cityName, data) {\n      var item = this.weatherList.querySelector(\"#current_city\");\n      item.querySelector(\"h4\").innerHTML = cityName;\n      item.querySelector(\"p\").innerHTML = data;\n    }\n  }, {\n    key: \"removeItem\",\n    value: function removeItem(cityId) {\n      this.weatherList.querySelector(\"#li\" + cityId).remove();\n    }\n  }]);\n\n  return WeatherView;\n}();\n\nvar WeatherModel = /*#__PURE__*/function () {\n  function WeatherModel(view) {\n    _classCallCheck(this, WeatherModel);\n\n    this.view = view;\n    this.userId = localStorage.getItem(\"user_id\");\n    this.cities = new Map();\n    this.currentCity = {\n      location: null,\n      name: 'Unknown',\n      weather: 'Unknown'\n    };\n  }\n\n  _createClass(WeatherModel, [{\n    key: \"saveUserId\",\n    value: function saveUserId(userId) {\n      this.userId = userId;\n      localStorage.setItem(\"user_id\", userId);\n    }\n  }, {\n    key: \"addCity\",\n    value: function addCity(id, name) {\n      var city = {\n        id: id,\n        name: name,\n        weather: ''\n      };\n      this.cities.set(id, city);\n      this.loadWeather(city);\n    }\n  }, {\n    key: \"updateCity\",\n    value: function updateCity(id, newName) {\n      var city = this.cities.get(id);\n      city.name = newName;\n      this.loadWeather(city);\n    }\n  }, {\n    key: \"removeCity\",\n    value: function removeCity(id) {\n      this.cities[\"delete\"](id);\n    }\n  }, {\n    key: \"setLocation\",\n    value: function setLocation(location) {\n      this.currentCity.location = location;\n\n      if (location == null) {\n        this.currentCity.name = \"Unknown\";\n        this.currentCity.weather = 'Unable to retrieve your location';\n        this.view.updateCurrentWeatherData(this.currentCity.name, this.currentCity.weather);\n        return;\n      }\n\n      this.loadCurrentWeather();\n    }\n  }, {\n    key: \"loadCurrentWeather\",\n    value: function loadCurrentWeather() {\n      var _this = this;\n\n      var url = new URL('http://api.openweathermap.org/data/2.5/weather');\n      url.searchParams.set('appid', 'a85a31d77daec507fe9c90f7968a89fc');\n      url.searchParams.set('lat', this.currentCity.location[0]);\n      url.searchParams.set('lon', this.currentCity.location[1]);\n      fetch(url).then(function (response) {\n        return response.json();\n      }).then(function (result) {\n        if (result.cod === 200) {\n          _this.currentCity.name = result.name;\n          _this.currentCity.weather = \"Temp: \".concat((result.main.temp - 270).toFixed(1), \"&deg;C; Wind: \").concat(result.wind.speed, \" mph; \").concat(result.weather[0].description);\n        } else {\n          _this.currentCity.name = \"error cod=\".concat(result.cod);\n          _this.currentCity.weather = JSON.stringify(result);\n        }\n      })[\"catch\"](function (err) {\n        console.log(err);\n        _this.currentCity.name = \"Unknown\";\n        _this.currentCity.weather = 'error';\n      })[\"finally\"](function () {\n        _this.view.updateCurrentWeatherData(_this.currentCity.name, _this.currentCity.weather);\n      });\n    }\n  }, {\n    key: \"loadWeather\",\n    value: function loadWeather(city) {\n      var _this2 = this;\n\n      city.weather = 'loading...';\n      this.view.updateWeatherData(city.id, city.weather);\n      var url = new URL('http://api.openweathermap.org/data/2.5/weather');\n      url.searchParams.set('appid', 'a85a31d77daec507fe9c90f7968a89fc');\n      url.searchParams.set('q', city.name);\n      fetch(url).then(function (response) {\n        return response.json();\n      }).then(function (result) {\n        if (result.cod !== 200) return city.weather = JSON.stringify(result);\n        city.weather = \"Temp: \".concat((result.main.temp - 270).toFixed(1), \"&deg;C; Wind: \").concat(result.wind.speed, \" mph; \").concat(result.weather[0].description);\n      })[\"catch\"](function (err) {\n        console.log(err);\n        city.weather = 'error';\n      })[\"finally\"](function () {\n        _this2.view.updateWeatherData(city.id, city.weather);\n      });\n    }\n  }]);\n\n  return WeatherModel;\n}();\n\nvar WeatherController = /*#__PURE__*/function () {\n  function WeatherController(model, view) {\n    _classCallCheck(this, WeatherController);\n\n    this.model = model;\n    this.view = view;\n    this.handle = this.handle.bind(this);\n    this.addData = this.addData.bind(this);\n  }\n\n  _createClass(WeatherController, [{\n    key: \"handle\",\n    value: function handle() {\n      var _this3 = this;\n\n      if (this.model.userId === null) {\n        fetch('http://localhost:3000/cities', {\n          method: 'POST'\n        }).then(function (response) {\n          return response.json();\n        }).then(function (result) {\n          _this3.model.saveUserId(result._id);\n        })[\"catch\"](function (err) {\n          return console.log(err);\n        });\n      }\n\n      if (navigator.geolocation) {\n        navigator.geolocation.getCurrentPosition(function (position) {\n          return _this3.model.setLocation([position.coords.latitude, position.coords.longitude]);\n        }, function (err) {\n          return _this3.model.setLocation(null);\n        });\n      } else {\n        this.model.setLocation(null);\n      }\n\n      fetch(\"http://localhost:3000/cities?userid=\".concat(this.model.userId)).then(function (response) {\n        return response.json();\n      }).then(function (result) {\n        result.forEach(function (element) {\n          var item = _this3.view.renderItem(element._id, element.name);\n\n          var hendler = _this3.createHendler(element._id, _this3);\n\n          item.addEventListener(\"click\", hendler);\n\n          _this3.model.addCity(element._id, element.name);\n        });\n      })[\"catch\"](function (err) {\n        return console.log(err);\n      });\n      this.view.addButton.addEventListener(\"click\", this.addData);\n    }\n  }, {\n    key: \"addData\",\n    value: function addData() {\n      var _this4 = this;\n\n      var cityName = this.view.input.value;\n      if (cityName.length === 0) return;\n      fetch('http://localhost:3000/cities', {\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json'\n        },\n        body: JSON.stringify({\n          city: cityName,\n          user_id: this.model.userId\n        })\n      }).then(function (response) {\n        return response.json();\n      }).then(function (result) {\n        var item = _this4.view.renderItem(result._id, result.name);\n\n        var hendler = _this4.createHendler(result._id, _this4);\n\n        item.addEventListener(\"click\", hendler);\n\n        _this4.model.addCity(result._id, result.name);\n      })[\"catch\"](function (err) {\n        return console.log(err);\n      })[\"finally\"](function () {\n        return _this4.view.input.value = '';\n      });\n    }\n  }, {\n    key: \"createHendler\",\n    value: function createHendler(id, controller) {\n      return {\n        id: id,\n        controller: controller,\n        handleEvent: function handleEvent(event) {\n          var _this5 = this;\n\n          var action = event.target.dataset.action;\n\n          switch (action) {\n            case \"remove\":\n              fetch(\"http://localhost:3000/cities/\".concat(this.id, \"?userid=\").concat(this.controller.model.userId), {\n                method: 'DELETE'\n              }).then(function (response) {\n                if (response.status === 200) {\n                  _this5.controller.model.removeCity(_this5.id);\n\n                  _this5.controller.view.removeItem(_this5.id);\n                }\n              })[\"catch\"](function (err) {\n                return console.log(err);\n              });\n              break;\n\n            case \"edit\":\n              this.controller.view.setItemEditable(this.id);\n              break;\n\n            case \"save\":\n              var newName = this.controller.view.weatherList.querySelector(\"#li\" + this.id + \" input\").value;\n              fetch(\"http://localhost:3000/cities/\".concat(this.id, \"?userid=\").concat(this.controller.model.userId), {\n                method: 'PUT',\n                headers: {\n                  'Content-Type': 'application/json'\n                },\n                body: JSON.stringify({\n                  city: newName\n                })\n              })[\"finally\"](function () {\n                _this5.controller.view.renderItem(_this5.id, newName);\n              }).then(function (response) {\n                if (response.status === 200) {\n                  _this5.controller.model.updateCity(_this5.id, newName);\n                }\n              })[\"catch\"](function (err) {\n                return console.log(err);\n              });\n              break;\n          }\n        }\n      };\n    }\n  }]);\n\n  return WeatherController;\n}();\n\nvar CoursView = /*#__PURE__*/function () {\n  function CoursView() {\n    _classCallCheck(this, CoursView);\n\n    this.coursList = document.querySelector(\"#exchange_rates\");\n  }\n\n  _createClass(CoursView, [{\n    key: \"clear\",\n    value: function clear() {\n      this.coursList.innerHTML = '';\n    }\n  }, {\n    key: \"renderLoading\",\n    value: function renderLoading() {\n      this.clear();\n      var li = document.createElement(\"li\");\n      li.innerText = 'loading...';\n      this.coursList.appendChild(li);\n    }\n  }, {\n    key: \"renderError\",\n    value: function renderError(msg) {\n      this.clear();\n      var li = document.createElement(\"li\");\n      li.innerText = \"error: \".concat(msg);\n      this.coursList.appendChild(li);\n    }\n  }, {\n    key: \"renderCoursItem\",\n    value: function renderCoursItem(ccy, base_ccy, buy, sale) {\n      var li = document.createElement(\"li\");\n      var title = document.createElement(\"h4\");\n      title.innerText = ccy;\n      var p = document.createElement(\"p\");\n      p.innerText = \"buy: \".concat((buy * 1).toFixed(2)).concat(base_ccy, \" / sale: \").concat((sale * 1).toFixed(2)).concat(base_ccy);\n      li.append(title, p);\n      this.coursList.appendChild(li);\n    }\n  }]);\n\n  return CoursView;\n}();\n\nvar CoursModel = /*#__PURE__*/function () {\n  function CoursModel() {\n    _classCallCheck(this, CoursModel);\n\n    this.courses = [];\n  }\n\n  _createClass(CoursModel, [{\n    key: \"setCourses\",\n    value: function setCourses(courses) {\n      this.courses = courses;\n    }\n  }, {\n    key: \"clearCourses\",\n    value: function clearCourses() {\n      this.courses = [];\n    }\n  }]);\n\n  return CoursModel;\n}();\n\nvar CoursControler = /*#__PURE__*/function () {\n  function CoursControler(model, view) {\n    _classCallCheck(this, CoursControler);\n\n    this.model = model;\n    this.view = view;\n    this.loadData = this.loadData.bind(this);\n  }\n\n  _createClass(CoursControler, [{\n    key: \"handle\",\n    value: function handle() {\n      this.loadData();\n      setInterval(this.loadData, 7200000);\n    }\n  }, {\n    key: \"loadData\",\n    value: function loadData() {\n      var _this6 = this;\n\n      this.model.clearCourses();\n      this.view.renderLoading();\n      fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5').then(function (response) {\n        return response.json();\n      }).then(function (result) {\n        _this6.model.setCourses(result);\n      })[\"catch\"](function (err) {\n        console.log(err);\n      })[\"finally\"](function () {\n        _this6.view.clear();\n\n        if (_this6.model.courses.length === 0) return _this6.view.renderError('no data');\n\n        _this6.model.courses.forEach(function (item) {\n          return _this6.view.renderCoursItem(item.ccy, item.base_ccy, item.buy, item.sale);\n        });\n      });\n    }\n  }]);\n\n  return CoursControler;\n}();\n\nvar weatherView = new WeatherView();\nvar weatherModel = new WeatherModel(weatherView);\nvar weatherController = new WeatherController(weatherModel, weatherView);\nvar coursView = new CoursView();\nvar coursModel = new CoursModel();\nvar coursController = new CoursControler(coursModel, coursView);\nweatherController.handle();\ncoursController.handle();\n\n//# sourceURL=webpack:///./src/main.js?");
 
-    removeItem(cityId) {
-        this.weatherList.querySelector("#li" + cityId).remove();
-    }
-}
+/***/ }),
 
-class WeatherModel {
-    constructor(view) {
-        this.view = view;
-        this.userId = localStorage.getItem("user_id");
-        this.cities = new Map();
-        this.currentCity = {
-            location: null,
-            name: 'Unknown',
-            weather: 'Unknown'
-        }
-    }
+/***/ "./src/styles/style.css":
+/*!******************************!*\
+  !*** ./src/styles/style.css ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-    saveUserId(userId) {
-        this.userId = userId;
-        localStorage.setItem("user_id", userId);
-    }
+eval("var api = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ \"./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js\");\n            var content = __webpack_require__(/*! !../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js!./style.css */ \"./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js!./src/styles/style.css\");\n\n            content = content.__esModule ? content.default : content;\n\n            if (typeof content === 'string') {\n              content = [[module.i, content, '']];\n            }\n\nvar options = {};\n\noptions.insert = \"head\";\noptions.singleton = false;\n\nvar update = api(content, options);\n\n\n\nmodule.exports = content.locals || {};\n\n//# sourceURL=webpack:///./src/styles/style.css?");
 
-    addCity(id, name) {
-        const city = {
-            id: id,
-            name: name,
-            weather: ''
-        }
-        this.cities.set(id, city);
-        this.loadWeather(city);
-    }
+/***/ })
 
-    updateCity(id, newName) {
-        const city = this.cities.get(id);
-        city.name = newName;
-        this.loadWeather(city);
-    }
-
-    removeCity(id) {
-        this.cities.delete(id);
-    }
-
-    setLocation(location) {
-        this.currentCity.location = location;
-        if(location == null) {
-            this.currentCity.name = `Unknown`;
-            this.currentCity.weather = 'Unable to retrieve your location';
-            this.view.updateCurrentWeatherData(this.currentCity.name, this.currentCity.weather);
-            return;
-        }
-        this.loadCurrentWeather();
-    }
-
-    loadCurrentWeather() {
-        const url = new URL('http://api.openweathermap.org/data/2.5/weather');
-        url.searchParams.set('appid', 'a85a31d77daec507fe9c90f7968a89fc');
-        url.searchParams.set('lat', this.currentCity.location[0]);
-        url.searchParams.set('lon', this.currentCity.location[1]);
-
-        fetch(url)
-            .then(response => response.json())
-            .then(result => {
-                if(result.cod === 200) {
-                    this.currentCity.name = result.name;
-                    this.currentCity.weather = `Temp: ${(result.main.temp - 270).toFixed(1)}&deg;C; Wind: ${result.wind.speed} mph; ${result.weather[0].description}`;
-                } else {
-                    this.currentCity.name = `error cod=${result.cod}`;
-                    this.currentCity.weather = JSON.stringify(result);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                this.currentCity.name = `Unknown`;
-                this.currentCity.weather = 'error';
-            })
-            .finally(() => {
-                this.view.updateCurrentWeatherData(this.currentCity.name, this.currentCity.weather);
-            });
-    }
-
-    loadWeather(city) {
-        city.weather = 'loading...';
-        this.view.updateWeatherData(city.id, city.weather);
-
-        const url = new URL('http://api.openweathermap.org/data/2.5/weather');
-        url.searchParams.set('appid', 'a85a31d77daec507fe9c90f7968a89fc');
-        url.searchParams.set('q', city.name);
-
-        fetch(url)
-            .then(response => response.json())
-            .then(result => {
-                if(result.cod !== 200) return city.weather = JSON.stringify(result);
-                city.weather = `Temp: ${(result.main.temp - 270).toFixed(1)}&deg;C; Wind: ${result.wind.speed} mph; ${result.weather[0].description}`;
-            })
-            .catch(err => {
-                console.log(err);
-                city.weather = 'error';
-            })
-            .finally(() => {
-                this.view.updateWeatherData(city.id, city.weather);
-            });
-    }
-
-}
-
-class WeatherController {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
-        this.handle = this.handle.bind(this);
-        this.addData = this.addData.bind(this);
-    }
-
-    handle() {
-        if(this.model.userId === null) {
-            fetch('http://localhost:3000/cities', { method: 'POST' })
-            .then(response => response.json())
-            .then(result => {
-                this.model.saveUserId(result._id);
-            })
-            .catch(err => console.log(err));
-        }
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition( 
-                (position) => this.model.setLocation([position.coords.latitude, position.coords.longitude]),
-                (err) => this.model.setLocation(null)
-                );
-        } else {
-            this.model.setLocation(null);
-        }
-        fetch(`http://localhost:3000/cities?userid=${this.model.userId}`)
-            .then(response => response.json())
-            .then(result => {
-                result.forEach(element => {
-                    const item = this.view.renderItem(element._id, element.name);
-                    const hendler = this.createHendler(element._id, this);
-                    item.addEventListener("click", hendler);
-
-                    this.model.addCity(element._id, element.name);
-                });
-            })
-            .catch(err => console.log(err));
-        this.view.addButton.addEventListener("click", this.addData);
-    }
-
-    addData() {
-        const cityName = this.view.input.value;
-        if(cityName.length === 0) return;
-
-        fetch('http://localhost:3000/cities', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                city: cityName,
-                user_id: this.model.userId
-            })
-          })
-            .then(response => response.json())
-            .then(result => {
-                const item = this.view.renderItem(result._id, result.name);
-                const hendler = this.createHendler(result._id, this);
-                item.addEventListener("click", hendler);
-
-                this.model.addCity(result._id, result.name);
-            })
-            .catch(err => console.log(err))
-            .finally(() => this.view.input.value = '');
-    }
-
-    createHendler(id, controller) {
-        return {
-            id: id,
-            controller: controller,
-            handleEvent(event) {
-                let action = event.target.dataset.action;
-                switch (action) {
-                    case "remove":
-                        fetch(`http://localhost:3000/cities/${this.id}?userid=${this.controller.model.userId}`, {method: 'DELETE'})
-                            .then(response => {
-                                if(response.status === 200) {
-                                    this.controller.model.removeCity(this.id);
-                                    this.controller.view.removeItem(this.id);
-                                }
-                            })
-                            .catch(err => console.log(err));
-                        break;
-                    case "edit":
-                        this.controller.view.setItemEditable(this.id);
-                        break;
-                    case "save":
-                        const newName = this.controller.view.weatherList.querySelector("#li" + this.id + " input").value;
-                        fetch(`http://localhost:3000/cities/${this.id}?userid=${this.controller.model.userId}`, {
-                            method: 'PUT',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({city: newName}) 
-                        })
-                            .finally(() => {
-                                this.controller.view.renderItem(this.id, newName);
-                            })
-                            .then(response => {
-                                if(response.status === 200) {
-                                    this.controller.model.updateCity(this.id, newName);                                    
-                                }
-                            })
-                            .catch(err => console.log(err));
-                        break;
-                }
-            }
-        }
-    }
-}
-
-class CoursView {
-    constructor() {
-        this.coursList = document.querySelector("#exchange_rates");
-    }
-    clear() {
-        this.coursList.innerHTML = '';
-    }
-    renderLoading() {
-        this.clear();
-        const li = document.createElement("li");
-        li.innerText = 'loading...';
-        this.coursList.appendChild(li);
-    }
-    renderError(msg) {
-        this.clear();
-        const li = document.createElement("li");
-        li.innerText = `error: ${msg}`;
-        this.coursList.appendChild(li);
-    }
-    renderCoursItem(ccy, base_ccy, buy, sale) {
-        const li = document.createElement("li");
-        const title = document.createElement("h4");
-        title.innerText = ccy;
-        const p = document.createElement("p");
-        p.innerText = `buy: ${(buy*1).toFixed(2)}${base_ccy} / sale: ${(sale*1).toFixed(2)}${base_ccy}`;
-        li.append(title, p);
-        this.coursList.appendChild(li);
-    }
-}
-
-class CoursModel {
-    constructor() {
-        this.courses = [];
-    }
-    setCourses(courses) {
-        this.courses = courses;
-    }
-    clearCourses() {
-        this.courses = [];
-    }
-}
-
-class CoursControler {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
-        this.loadData = this.loadData.bind(this);
-    }
-
-
-    handle() {
-        this.loadData();
-        setInterval(this.loadData, 7200000);
-    }
-
-
-    loadData() {
-        this.model.clearCourses();
-        this.view.renderLoading();
-        fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
-            .then(response => response.json())
-            .then(result => {
-                this.model.setCourses(result);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-            .finally(() => {
-                this.view.clear();
-                if(this.model.courses.length === 0) return this.view.renderError('no data');
-                this.model.courses.forEach(item => this.view.renderCoursItem(item.ccy, item.base_ccy, item.buy, item.sale))
-            });
-    }
-
-}
-
-const weatherView = new WeatherView();
-const weatherModel = new WeatherModel(weatherView);
-const weatherController = new WeatherController(weatherModel, weatherView);
-
-const coursView = new CoursView();
-const coursModel = new CoursModel();
-const coursController = new CoursControler(coursModel, coursView);
-
-weatherController.handle();
-coursController.handle();
+/******/ });

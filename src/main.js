@@ -1,3 +1,5 @@
+import './styles/style.css';
+
 class WeatherView {
     constructor() {
         this.input = document.querySelector("header input");

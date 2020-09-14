@@ -5,7 +5,7 @@ const app = express();
 let MongoClient = require('mongodb').MongoClient;
 let ObjectID = require('mongodb').ObjectID;
 
-const url = 'mongodb://127.0.0.1:27017';//'mongodb://localhost:27017';
+const url = 'mongodb://localhost:27017';
 const dbName = 'weatherapp';
 const client = new MongoClient(url);
 
@@ -20,7 +20,6 @@ client.connect((err) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/src'));
 
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'), 
     (err) => console.log(err));
